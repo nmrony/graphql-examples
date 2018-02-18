@@ -1,7 +1,7 @@
 {
   "name": "express-graphql-server",
   "version": "1.0.0",
-  "description": "A raw GraphQL Express Server for Good Read",
+  "description": "A raw GraphQL Express Server for Goodreads",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js --exec babel-node",
