@@ -11,10 +11,12 @@
   "author": "Nur Rony <rony@nmrony.info> (https://nmrony.info)",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^5.0.0",
     "express": "^4.16.2",
     "express-graphql": "^0.6.11",
     "graphql": "^0.13.1",
-    "node-fetch": "^2.0.0"
+    "node-fetch": "^2.0.0",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

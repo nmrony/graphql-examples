@@ -1,7 +1,11 @@
 import express from 'express'
 import graphqlHTTP from 'express-graphql'
+import dotenv from 'dotenv'
 
-import schema from './data/schema'
+dotenv.config()
+
+import { schema } from './data/schema'
+
 
 const PORT = process.env.NODE_PORT || 3000
 
