@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker'
 
 import { ApolloProvider } from 'react-apollo'
@@ -8,7 +9,7 @@ import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
 import './index.css'
-import App from './components/App/App'
+import { App } from './components/App'
 
 // create the link
 const uri = 'http://localhost:4000'
@@ -21,9 +22,11 @@ const client = new ApolloClient({
 })
 
 const HackerNewsApp = () => (
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>
+  <BrowserRouter>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
+  </BrowserRouter>
 )
 
 ReactDOM.render(<HackerNewsApp />, document.getElementById('root'))
