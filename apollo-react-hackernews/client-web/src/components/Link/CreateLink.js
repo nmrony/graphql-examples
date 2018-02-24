@@ -2,6 +2,9 @@ import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import React, { Component } from 'react'
 
+
+import { FEED_QUERY } from './LinkList';
+
 class CreateLinkComponent extends Component {
   state = {
     description: '',
@@ -10,12 +13,24 @@ class CreateLinkComponent extends Component {
 
   _createLink = async () => {
     const { description, url } = this.state
-    await this.props.postMutation({
-      variables: {
-        description,
-        url
-      }
-    })
+    try {
+      const result = await this.props.postMutation({
+        variables: {
+          description,
+          url
+        },
+        update: (store, { data: { post } }) => {
+          const data = store.readQuery({ query: FEED_QUERY })
+          data.feed.links.splice(0, 0, post)
+          store.writeQuery({
+            query: FEED_QUERY,
+            data
+          })
+        }
+      })
+    } catch (postCreateError) {
+      console.error('PostCreate:', postCreateError)
+    }
   }
 
   render() {

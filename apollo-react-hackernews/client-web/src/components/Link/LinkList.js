@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo'
 import React, { Component } from 'react'
 
 import { Link } from './Link'
- class LinkListComponent extends Component {
+class LinkListComponent extends Component {
   render() {
     if (this.props.feedQuery && this.props.feedQuery.loading) {
       return <div>Loading</div>
@@ -16,12 +16,28 @@ import { Link } from './Link'
     const linksToRender = this.props.feedQuery.feed.links
 
     return (
-      <div>{linksToRender.map(link => <Link key={link.id} link={link} />)}</div>
+      <div>
+        {linksToRender.map((link, index) => (
+          <Link key={link.id} index={index} link={link} updateStoreAfterVote={this._updateCacheAfterVote} />
+        ))}
+      </div>
     )
+  }
+
+  _updateCacheAfterVote = (store, createVote, linkId) => {
+    // 1
+    const data = store.readQuery({ query: FEED_QUERY })
+
+    // 2
+    const votedLink = data.feed.links.find(link => link.id === linkId)
+    votedLink.votes = createVote.link.votes
+
+    // 3
+    store.writeQuery({ query: FEED_QUERY, data })
   }
 }
 
-const FEED_QUERY = gql`
+export const FEED_QUERY = gql`
   query FeedQuery {
     feed {
       links {
@@ -29,10 +45,20 @@ const FEED_QUERY = gql`
         createdAt
         url
         description
+        postedBy {
+          id
+          name
+        }
+        votes {
+          id
+          user {
+            id
+          }
+        }
       }
     }
   }
 `
 
 // 3
-export const LinkList = graphql(FEED_QUERY, { name: 'feedQuery' }) (LinkListComponent)
+export const LinkList = graphql(FEED_QUERY, { name: 'feedQuery' })(LinkListComponent)
