@@ -2,6 +2,15 @@ body {
   margin: 0;
   padding: 0;
   font-family: Verdana, Geneva, sans-serif;
+  font-size: 13px;
+}
+a:link {
+  color: #000000;
+  text-decoration: none;
+}
+a:visited {
+  color: #828282;
+  text-decoration: none;
 }
 
 input {
@@ -17,11 +26,15 @@ input {
 }
 
 .background-gray {
-  background-color: rgb(246,246,239);
+  background-color: rgb(246, 246, 239);
 }
 
 .f11 {
   font-size: 11px;
+}
+
+.f6 {
+  font-size: 7pt;
 }
 
 .w85 {
@@ -40,4 +53,11 @@ input {
   border-color: buttonface;
   cursor: pointer;
   max-width: 250px;
+}
+
+.black {
+  color: #000 !important;
+}
+.pointer {
+  cursor: pointer;
 }

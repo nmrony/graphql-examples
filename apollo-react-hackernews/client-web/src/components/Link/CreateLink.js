@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 
 
 import { FEED_QUERY } from './LinkList';
-
+import { LINKS_PER_PAGE } from './../../constants'
 class CreateLinkComponent extends Component {
   state = {
     description: '',
@@ -13,24 +13,29 @@ class CreateLinkComponent extends Component {
 
   _createLink = async () => {
     const { description, url } = this.state
-    try {
-      await this.props.postMutation({
-        variables: {
-          description,
-          url
-        },
-        update: (store, { data: { post } }) => {
-          const data = store.readQuery({ query: FEED_QUERY })
-          data.feed.links.splice(0, 0, post)
-          store.writeQuery({
-            query: FEED_QUERY,
-            data
-          })
-        }
-      })
-    } catch (postCreateError) {
-      console.error('PostCreate =>', postCreateError)
-    }
+    await this.props.postMutation({
+      variables: {
+        description,
+        url,
+      },
+      update: (store, { data: { post } }) => {
+        const first = LINKS_PER_PAGE
+        const skip = 0
+        const orderBy = 'createdAt_DESC'
+        const data = store.readQuery({
+          query: FEED_QUERY,
+          variables: { first, skip, orderBy },
+        })
+        data.feed.links.splice(0, 0, post)
+        data.feed.links.pop()
+        store.writeQuery({
+          query: FEED_QUERY,
+          data,
+          variables: { first, skip, orderBy },
+        })
+      },
+    })
+    this.props.history.push(`/new/1`)
   }
 
   render() {
