@@ -10,5 +10,3 @@ It uses GraphQL server as backend to fetch the Feed
 6. Real time Subscription for new feed and new vote
 7. Sorting by vote
 8. Search functionality
-
-
