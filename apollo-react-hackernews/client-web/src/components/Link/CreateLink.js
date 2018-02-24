@@ -14,7 +14,7 @@ class CreateLinkComponent extends Component {
   _createLink = async () => {
     const { description, url } = this.state
     try {
-      const result = await this.props.postMutation({
+      await this.props.postMutation({
         variables: {
           description,
           url
@@ -29,7 +29,7 @@ class CreateLinkComponent extends Component {
         }
       })
     } catch (postCreateError) {
-      console.error('PostCreate:', postCreateError)
+      console.error('PostCreate =>', postCreateError)
     }
   }
 

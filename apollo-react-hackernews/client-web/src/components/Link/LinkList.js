@@ -24,6 +24,92 @@ class LinkListComponent extends Component {
     )
   }
 
+  componentDidMount() {
+    this._subscribeToNewLinks()
+    this._subscribeToNewVotes()
+  }
+
+  _subscribeToNewVotes = () => {
+    this.props.feedQuery.subscribeToMore({
+      document: gql`
+        subscription {
+          newVote {
+            node {
+              id
+              link {
+                id
+                url
+                description
+                createdAt
+                postedBy {
+                  id
+                  name
+                }
+                votes {
+                  id
+                  user {
+                    id
+                  }
+                }
+              }
+              user {
+                id
+              }
+            }
+          }
+        }
+      `,
+      updateQuery: (previous, { subscriptionData }) => {
+        console.log(`NEW VOTE`)
+        const votedLinkIndex = previous.feed.links.findIndex(
+          link => link.id === subscriptionData.data.newVote.node.link.id,
+        )
+        const newAllLinks = previous.feed.links.slice()
+        const result = {
+          ...previous,
+          allLinks: newAllLinks,
+        }
+        return result
+      },
+    })
+  }
+  _subscribeToNewLinks = () => {
+    this.props.feedQuery.subscribeToMore({
+      document: gql`
+        subscription {
+          newLink {
+            node {
+              id
+              url
+              description
+              createdAt
+              postedBy {
+                id
+                name
+              }
+              votes {
+                id
+                user {
+                  id
+                }
+              }
+            }
+          }
+        }
+      `,
+      updateQuery: (previous, { subscriptionData }) => {
+        const newAllLinks = [subscriptionData.data.newLink.node, ...previous.feed.links]
+        const result = {
+          ...previous,
+          feed: {
+            links: newAllLinks
+          }
+        }
+        return result
+      }
+    })
+  }
+
   _updateCacheAfterVote = (store, createVote, linkId) => {
     // 1
     const data = store.readQuery({ query: FEED_QUERY })
