@@ -3,8 +3,8 @@ import { graphql } from 'react-apollo'
 import React, { Component } from 'react'
 
 import { Link } from './Link'
+import { Error } from './../Error'
 import { LINKS_PER_PAGE } from './../../constants'
-
 class LinkListComponent extends Component {
   componentDidMount() {
     this._subscribeToNewLinks()
@@ -17,7 +17,7 @@ class LinkListComponent extends Component {
     }
 
     if (this.props.feedQuery && this.props.feedQuery.error) {
-      return <div>Error</div>
+      return <Error message={this.props.feedQuery.error.message} />
     }
 
     const isNewPage = this.props.location.pathname.includes('new')
@@ -37,7 +37,7 @@ class LinkListComponent extends Component {
           ))}
         </div>
         {isNewPage && (
-          <div className="flex ml4 mv3 gray">
+          <div className="flex mv3 gray f11">
             <div className="pointer mr2" onClick={() => this._previousPage()}>
               Previous
             </div>

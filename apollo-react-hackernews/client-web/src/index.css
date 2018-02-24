@@ -61,3 +61,17 @@ input {
 .pointer {
   cursor: pointer;
 }
+
+.alert {
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #1acfe7be;
+  background-color: #158569fa;
+  color: #eee;
+}
+
+.alert .alert-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+}

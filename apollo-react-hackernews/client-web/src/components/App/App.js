@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 import './App.css'
-import Header from './../Header/Header'
-import { LinkList, CreateLink } from './../Link'
+
 import { Login } from './../Login'
 import { Search } from './../Search'
+import Header from './../Header/Header'
+import { LinkList, CreateLink } from './../Link'
 
 export class App extends Component {
   render() {

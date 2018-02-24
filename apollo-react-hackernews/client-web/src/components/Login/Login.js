@@ -2,6 +2,7 @@ import gql from 'graphql-tag'
 import { graphql, compose } from 'react-apollo'
 import React, { Component } from 'react'
 
+import { Error } from './../Error'
 import { AUTH_TOKEN } from './../../constants'
 
 class LoginComponent extends Component {
@@ -9,7 +10,8 @@ class LoginComponent extends Component {
     login: true, // switch between Login and SignUp
     email: '',
     password: '',
-    name: ''
+    name: '',
+    error: null
   }
 
   render() {
@@ -17,6 +19,7 @@ class LoginComponent extends Component {
       <div>
         <h4 className="mv3">{this.state.login ? 'Login' : 'Sign Up'}</h4>
         <div className="flex flex-column">
+          {this.state.error && <Error message={this.state.error.message} />}
           {!this.state.login && (
             <input
               value={this.state.name}
@@ -64,11 +67,11 @@ class LoginComponent extends Component {
         const { token } = result.data.login
         this._saveUserData(token)
       } catch (loginError) {
-        console.error(loginError)
+        console.error('Signup Error =>', JSON.stringify(loginError.message))
+        this.setState({ error: loginError })
       }
     } else {
       try {
-
         const result = await this.props.signupMutation({
           variables: {
             name,
@@ -78,11 +81,11 @@ class LoginComponent extends Component {
         })
         const { token } = result.data.signup
         this._saveUserData(token)
+        this.props.history.push(`/`)
       } catch (singupError) {
-        console.error('Signup Error', singupError)
+        console.error('Signup Error =>', singupError)
       }
     }
-    this.props.history.push(`/`)
   }
 
   _saveUserData = token => {
