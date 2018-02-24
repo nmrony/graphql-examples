@@ -64,10 +64,8 @@ input {
 
 .alert {
   border-radius: 5px;
-  padding: 5px;
-  margin: 5px;
-  border: 1px solid #1acfe7be;
-  background-color: #158569fa;
+  padding: 5px 0;
+  margin: 5px 0;
   color: #eee;
 }
 
