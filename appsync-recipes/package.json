@@ -5,6 +5,7 @@
   "dependencies": {
     "aws-appsync": "^1.0.15",
     "aws-appsync-react": "^1.0.8",
+    "dotenv": "^5.0.1",
     "glamor": "^2.20.40",
     "graphql-tag": "^2.8.0",
     "react": "^16.3.1",
