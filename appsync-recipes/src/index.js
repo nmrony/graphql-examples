@@ -7,7 +7,7 @@ import registerServiceWorker from './registerServiceWorker'
 
 import './index.css'
 import { App } from './App'
-import appSyncConfig from './appsync'
+import appSyncConfig from './AppSyncCredentials'
 
 // create Apollo client for AppSync
 const client = new AWSAppSyncClient({
