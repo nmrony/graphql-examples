@@ -21,6 +21,7 @@ const typeDefs = `
   type Mutation {
     addTodo(text: String!): Todo
     toggleTodo(id: Int!): Todo
+    removeTodo(id: Int!): Todo
   }
 
   type Query {
