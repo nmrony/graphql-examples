@@ -1,0 +1,20 @@
+{
+  "name": "apollo-server-basic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/",
+  "scripts": {
+    "start": "nodemon .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Nur Rony <pro.nmrony@gmail.com> (https://nmrony.info/)",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.9.9",
+    "graphql": "^14.5.8"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
