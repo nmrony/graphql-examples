@@ -11,7 +11,7 @@
   "author": "Nur Rony <rony@nmrony.info> (https://nmrony.info)",
   "license": "ISC",
   "dependencies": {
-    "apollo-server-express": "^1.3.2",
+    "apollo-server-express": "^2.14.2",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "graphql": "^0.13.1",
